@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #app {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <div id="app" />
+    <script type="text/javascript">
+        const sort = array => {
+            for (let i = 0; i < array.length; i++) {
+                setTimeout(() => {
+                    for (let j = 1; j < array.length; j++) {
+                        if (array[j - 1] > array[j]) {
+                            [array[j - 1], array[j]] = [array[j], array[j - 1]];
+                            draw(array);
+                        }
+                    }
+                }, 250 * (i + 1));
+            }
+        }
+
+        // random array of length 20
+        const unsortedArray = Array.from({
+            length: 30
+        }, (v, i) => 1 + Math.floor(Math.random() * Math.floor(100)));
+
+        // placeholders divs
+        unsortedArray.forEach((n, i) => {
+            const root = document.getElementById('app');
+            const newDiv = document.createElement('div');
+            newDiv.setAttribute('id', `d-${i}`);
+            newDiv.style.backgroundColor = "black";
+            newDiv.style.color = "white";
+            newDiv.innerText = n;
+            newDiv.style.width = `${n}%`;
+            root.appendChild(newDiv);
+        });
+
+        const draw = array => {
+            array.forEach((x, i) => {
+                document.getElementById(`d-${i}`).innerText = x;
+                document.getElementById(`d-${i}`).style.width = `${x}%`;
+            });
+        };
+
+        sort(unsortedArray);
+
+    </script>
+</body>
+
+</html>
